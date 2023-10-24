@@ -60,6 +60,7 @@ btnAgregar.addEventListener("click", function(event){
         cuerpoTabla.insertAdjacentHTML("beforeend", row);
         txtNombre.value="";
         txtNumber.value="";
+        txtNombre.focus();
     }//isValid
 });// btnAgregar click
 
@@ -71,5 +72,6 @@ btnClear.addEventListener("click", function(event){
     txtNumber.style.border="";
     txtNombre.value="";
     txtNumber.value="";
+    cuerpoTabla.innerHTML="";
 });// btnClear click
 
