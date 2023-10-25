@@ -70,7 +70,7 @@ btnAgregar.addEventListener("click", function(event){
                         "nombre": "${txtNombre.value}",
                         "cantidad": "${txtNumber.value}",
                         "precio": "${precio}"}`;
-        datos.push(elemento);
+        datos.push( JSON.parse(elemento));
         localStorage.setItem("datos", JSON.stringify(datos));
 
         cuerpoTabla.insertAdjacentHTML("beforeend", row);
@@ -109,6 +109,7 @@ contadorProductos.innerText=contador;
 });// btnClear click
 
 window.addEventListener("load", function(event){
+ 
     if (localStorage.getItem("contador")!=null){
         contador = Number(localStorage.getItem("contador"));
     }//contador !=null
@@ -123,9 +124,15 @@ window.addEventListener("load", function(event){
     
     if(localStorage.getItem("datos")!=null){
         datos = JSON.parse(localStorage.getItem("datos"));
-        for (let index = 0; index < datos.length; index++) {
-            console.log(datos[index]);
-        }//for index
+        datos.forEach((r) => {
+            let row = `<tr>
+                <td>${r.id}</td>
+                <td>${r.nombre}</td>
+                <td>${r.cantidad}</td>
+                <td>${r.precio}</td>
+            </tr>`;
+            cuerpoTabla.insertAdjacentHTML("beforeend", row);
+        });//forEach
     }//datos!=null
 
     contadorProductos.innerText = contador;
