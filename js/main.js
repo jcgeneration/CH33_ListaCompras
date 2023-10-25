@@ -6,8 +6,15 @@ let btnClear = document.getElementById("btnClear");
 let alertValidaciones = document.getElementById("alertValidaciones");
 let tablaListaCompras = document.getElementById("tablaListaCompras");
 let cuerpoTabla = tablaListaCompras.getElementsByTagName("tbody").item(0);
+
+let contadorProductos = document.getElementById("contadorProductos");
+let productosTotal = document.getElementById("productosTotal");
+let precioTotal = document.getElementById("precioTotal");
+
 let contador = 0;
 let precio = 0;
+let costoTotal = 0;
+let totalEnProductos=0;
 
 function validarCantidad(){
     if (txtNumber.value.length==0){
@@ -58,6 +65,17 @@ btnAgregar.addEventListener("click", function(event){
                         <td>${precio}</td>
                     </tr>`;
         cuerpoTabla.insertAdjacentHTML("beforeend", row);
+        contadorProductos.innerText= contador;
+        totalEnProductos+= Number(txtNumber.value);
+        productosTotal.innerText = totalEnProductos;
+        costoTotal += (precio * Number(txtNumber.value));
+        precioTotal.innerText = `$ ${costoTotal.toFixed(2)}`; 
+
+        localStorage.setItem("contador", contador);
+        localStorage.setItem("totalEnProductos", totalEnProductos);
+        localStorage.setItem("costoTotal", costoTotal.toFixed(2));
+
+
         txtNombre.value="";
         txtNumber.value="";
         txtNombre.focus();
@@ -73,5 +91,30 @@ btnClear.addEventListener("click", function(event){
     txtNombre.value="";
     txtNumber.value="";
     cuerpoTabla.innerHTML="";
+    contador=0;
+contadorProductos.innerText=contador;
+    totalEnProductos = 0;
+    productosTotal.innerText = totalEnProductos;
+    costoTotal = 0;
+    precioTotal.innerText = `$ ${costoTotal}`;
 });// btnClear click
+
+window.addEventListener("load", function(event){
+    if (localStorage.getItem("contador")!=null){
+        contador = Number(localStorage.getItem("contador"));
+    }//contador !=null
+
+    if(localStorage.getItem("totalEnProductos")!=null){
+        totalEnProductos= Number(localStorage.getItem("totalEnProductos"));
+    }//totalEnProducto!=null
+
+    if(localStorage.getItem("costoTotal")!=null){
+        costoTotal= Number(localStorage.getItem("costoTotal"));
+    }//costoTotal!=null
+
+    contadorProductos.innerText = contador;
+    productosTotal.innerText = totalEnProductos;
+    precioTotal.innerText=  `$ ${costoTotal}`;
+});
+
 
