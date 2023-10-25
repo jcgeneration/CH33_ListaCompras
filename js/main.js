@@ -16,6 +16,8 @@ let precio = 0;
 let costoTotal = 0;
 let totalEnProductos=0;
 
+let datos = new Array(); // Aquí vamos a almacenar los elementos de la tabla
+
 function validarCantidad(){
     if (txtNumber.value.length==0){
         return false;
@@ -64,6 +66,14 @@ btnAgregar.addEventListener("click", function(event){
                         <td>${txtNumber.value}</td>
                         <td>${precio}</td>
                     </tr>`;
+        let elemento = `{"id" : ${contador} ,
+                         "nombre" : ${txtNombre.value}, 
+                         "cantidad": ${txtNumber.value},
+                         "precio": ${precio}
+                        }`;
+        datos.push(elemento);
+        localStorage.setItem("datos", JSON.stringify(datos));
+
         cuerpoTabla.insertAdjacentHTML("beforeend", row);
         contadorProductos.innerText= contador;
         totalEnProductos+= Number(txtNumber.value);
