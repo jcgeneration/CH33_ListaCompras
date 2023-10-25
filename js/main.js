@@ -66,11 +66,10 @@ btnAgregar.addEventListener("click", function(event){
                         <td>${txtNumber.value}</td>
                         <td>${precio}</td>
                     </tr>`;
-        let elemento = `{"id" : ${contador} ,
-                         "nombre" : ${txtNombre.value}, 
-                         "cantidad": ${txtNumber.value},
-                         "precio": ${precio}
-                        }`;
+        let elemento = `{"id" : "${contador}",
+                        "nombre": "${txtNombre.value}",
+                        "cantidad": "${txtNumber.value}",
+                        "precio": "${precio}"}`;
         datos.push(elemento);
         localStorage.setItem("datos", JSON.stringify(datos));
 
@@ -121,6 +120,13 @@ window.addEventListener("load", function(event){
     if(localStorage.getItem("costoTotal")!=null){
         costoTotal= Number(localStorage.getItem("costoTotal"));
     }//costoTotal!=null
+    
+    if(localStorage.getItem("datos")!=null){
+        datos = JSON.parse(localStorage.getItem("datos"));
+        for (let index = 0; index < datos.length; index++) {
+            console.log(datos[index]);
+        }//for index
+    }//datos!=null
 
     contadorProductos.innerText = contador;
     productosTotal.innerText = totalEnProductos;
